@@ -26,6 +26,11 @@ public class LoginActivity extends AppCompatActivity {
     private Button btnLogin;
     private AsyncHttpClient client;
 
+    boolean check = false;
+
+    String pw = "";
+    String id = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,29 +65,24 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                             try {
-                                    String password = response.getString("password");
-                                    String id = response.getString("staffID");
+                                Toast.makeText(LoginActivity.this, "Login Success", Toast.LENGTH_LONG).show();
 
-                                Intent intent = new Intent(getBaseContext(), MainActivity.class);
-                                intent.putExtra("staffID", id);
-                                intent.putExtra("password", password);
-                                startActivity(intent);
-//
-//                                    SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
-//                                    SharedPreferences.Editor editor = prefs.edit();
-//                                    editor.putString("staff_id", id);
-//                                    editor.putString("password", password);
-//                                    editor.commit();
-//
-//                                    Intent i = new Intent(getBaseContext() , MainActivity.class);
-//                                    startActivity(i);
+                                check = true;
+                                pw = response.getString("password");
+                                id = response.getString("staffID");
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                         }
                     });
+                    if (check) {
 
+                        Intent intent = new Intent(getBaseContext(), MainActivity.class);
+                        intent.putExtra("staffID", id);
+                        intent.putExtra("password", pw);
+                        startActivity(intent);
+                    }
 
                 }
             }

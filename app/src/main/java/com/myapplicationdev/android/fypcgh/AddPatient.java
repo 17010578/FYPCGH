@@ -42,9 +42,6 @@ public class AddPatient extends AppCompatActivity {
                 btnPatientDetails.setClickable(false);
                 openFragment(f1);
 
-
-
-
             }
         });
 

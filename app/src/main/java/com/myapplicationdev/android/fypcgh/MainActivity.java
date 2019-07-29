@@ -22,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        setTitle("Patient List");
+
         tvID = findViewById(R.id.tvID);
         tvPass = findViewById(R.id.tvPass);
 
@@ -42,26 +44,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
         if (id == R.id.action_add_patient) {
             Intent i = new Intent(getBaseContext(), AddPatient.class);
             startActivity(i);
 
         }
-//        else if (id == R.id.action_edit_patient){
-//            Intent i = new Intent(getBaseContext(), LoginActivity.class);
-//
-//            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-//            SharedPreferences.Editor editor = prefs.edit();
-//            editor.putString("id", "");
-//            editor.putString("apikey","");
-//            editor.commit();
-//
-//            startActivity(i);
-//        }
         return super.onOptionsItemSelected(item);
     }
 }

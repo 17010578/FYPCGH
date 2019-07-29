@@ -50,13 +50,19 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etLoginID.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
-                if (username.equalsIgnoreCase("")) {
-                    Toast.makeText(LoginActivity.this, "Login failed. Please enter username.", Toast.LENGTH_LONG).show();
-
-                } else if (password.equalsIgnoreCase("")) {
-                    Toast.makeText(LoginActivity.this, "Login failed. Please enter password.", Toast.LENGTH_LONG).show();
-
-                } else {
+                if (username.length() == 0) {
+                    Toast.makeText(getBaseContext(), "ID cannot be empty", Toast.LENGTH_LONG).show();
+                }
+                else if (password.length() == 0) {
+                    Toast.makeText(getBaseContext(), "Password cannot be empty", Toast.LENGTH_LONG).show();
+                }
+//                else if (username != 1) {
+//                    Toast.makeText(getBaseContext(), "Wrong ID ", Toast.LENGTH_LONG).show();
+//                }
+//                else if (password != "john") {
+//                    Toast.makeText(getBaseContext(), "Wrong Password ", Toast.LENGTH_LONG).show();
+//                }
+                else {
                     // proceed to authenticate user
 
                     RequestParams params = new RequestParams();

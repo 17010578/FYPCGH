@@ -265,15 +265,15 @@ public class AddMedicalDetails extends Fragment {
                 SimpleDateFormat simpleTimeFormat = new SimpleDateFormat("HH:MM:SS");
                 String date = simpleDateFormat.format(new Date());
                 String time = simpleTimeFormat.format(new Date());
-                String.format(date,admissionDate);
-                String.format(date,mealDate);
-                String.format(date,fluidDate);
-                String.format(date,consultDate);
+                String.format(date, admissionDate);
+                String.format(date, mealDate);
+                String.format(date, fluidDate);
+                String.format(date, consultDate);
 
-                String.format(time,admissionTime);
-                String.format(time,mealTime);
-                String.format(time,fluidTime);
-                String.format(time,consultTime);
+                String.format(time, admissionTime);
+                String.format(time, mealTime);
+                String.format(time, fluidTime);
+                String.format(time, consultTime);
 
                 String admissionDateTime = admissionDate + "" + admissionTime;
                 String mealDateTime = mealDate + "" + mealTime;
@@ -300,41 +300,48 @@ public class AddMedicalDetails extends Fragment {
                     priority = 1;
                 }
 
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                params.add("nric", nric);
-                params.add("ward", ward);
-                params.add("bed", bed);
-                params.add("remark", remarks);
-                params.add("consultant", consultDateTime);
-                params.add("fluid", fluidDateTime);
-                params.add("fasting", mealDateTime);
-                params.add("admission_date", admissionDateTime);
-                params.add("surgical_consent", Integer.toString(consent));
-                params.add("necessary_investigations", Integer.toString(investigate));
-                params.add("anaesthesia_consent", Integer.toString(anesthesia));
-                params.add("priority", Integer.toString(priority));
-                params.add("lastEdit", Integer.toString(1));
-                params.add("surgical_completed_time","0000-00-00 00:00:00");
-                params.add("last_ready_time","0000-00-00 00:00:00");
-                params.add("surgical_completed",Integer.toString(0));
-                params.add("queue_no",Integer.toString(0));
-                params.add("ready",Integer.toString(0));
-                params.add("mo_queue",Integer.toString(0));
+                if (nric.length() == 0) {
+                    Toast.makeText(getContext(), "NRIC is a required field ! ", Toast.LENGTH_LONG).show();
+                } else if (ward.length() == 0) {
+                    Toast.makeText(getContext(), "Ward is a required field !", Toast.LENGTH_LONG).show();
+                } else if (bed.length() == 0) {
+                    Toast.makeText(getContext(), "Bed is a required field !", Toast.LENGTH_LONG).show();
+                } else {
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.add("nric", nric);
+                    params.add("ward", ward);
+                    params.add("bed", bed);
+                    params.add("remark", remarks);
+                    params.add("consultant", consultDateTime);
+                    params.add("fluid", fluidDateTime);
+                    params.add("fasting", mealDateTime);
+                    params.add("admission_date", admissionDateTime);
+                    params.add("surgical_consent", Integer.toString(consent));
+                    params.add("necessary_investigations", Integer.toString(investigate));
+                    params.add("anaesthesia_consent", Integer.toString(anesthesia));
+                    params.add("priority", Integer.toString(priority));
+                    params.add("lastEdit", Integer.toString(1));
+                    params.add("surgical_completed_time", "0000-00-00 00:00:00");
+                    params.add("last_ready_time", "0000-00-00 00:00:00");
+                    params.add("surgical_completed", Integer.toString(0));
+                    params.add("queue_no", Integer.toString(0));
+                    params.add("ready", Integer.toString(0));
+                    params.add("mo_queue", Integer.toString(0));
 
 
-                client.post("http://10.0.2.2/FYPCGH/doAddChit.php", params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            String message = response.getString("message");
-                            Toast.makeText(getContext(), "Patient added successfully", Toast.LENGTH_LONG).show();
-                        } catch (JSONException e) {
+                    client.post("http://10.0.2.2/FYPCGH/doAddChit.php", params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                String message = response.getString("message");
+                                Toast.makeText(getContext(), "Patient added successfully", Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
 
+                            }
                         }
-                    }
-                });
-
+                    });
+                }
             }
         });
 

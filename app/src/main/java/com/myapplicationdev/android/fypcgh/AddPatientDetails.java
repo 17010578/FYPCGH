@@ -100,8 +100,16 @@ public class AddPatientDetails extends Fragment {
 
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String date = sdf.format(new Date());
-
-
+                if (nric.length() == 0) {
+                    Toast.makeText(getContext(), "NRIC is a required field ! ", Toast.LENGTH_LONG).show();
+                }
+                else if (name.length() == 0) {
+                    Toast.makeText(getContext(), "Name is a required field !", Toast.LENGTH_LONG).show();
+                }
+                else if (contact.length() == 0) {
+                    Toast.makeText(getContext(), "Contact is a required field !", Toast.LENGTH_LONG).show();
+                }
+                else {
 //                DateFormat outputFormat = new SimpleDateFormat("MM/yyyy");
 //                DateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
 //
@@ -119,27 +127,27 @@ public class AddPatientDetails extends Fragment {
 //
 //                String outputText = outputFormat.format(date);
 
-                AsyncHttpClient client = new AsyncHttpClient();
-                RequestParams params = new RequestParams();
-                params.add("nric", nric);
-                params.add("name", name);
-                params.add("dob", date);
-                params.add("gender", gender);
-                params.add("familyContact", contact);
-                params.add("drugAllergy", drug);
+                    AsyncHttpClient client = new AsyncHttpClient();
+                    RequestParams params = new RequestParams();
+                    params.add("nric", nric);
+                    params.add("name", name);
+                    params.add("dob", date);
+                    params.add("gender", gender);
+                    params.add("familyContact", contact);
+                    params.add("drugAllergy", drug);
 
-                client.post("http://10.0.2.2/FYPCGH/doAddPatients.php", params, new JsonHttpResponseHandler() {
-                    @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                        try {
-                            String message = response.getString("message");
-                            Toast.makeText(getContext(), "Patient added successfully", Toast.LENGTH_LONG).show();
-                        }
-                        catch (JSONException e) {
+                    client.post("http://10.0.2.2/FYPCGH/doAddPatients.php", params, new JsonHttpResponseHandler() {
+                        @Override
+                        public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                            try {
+                                String message = response.getString("message");
+                                Toast.makeText(getContext(), "Patient added successfully", Toast.LENGTH_LONG).show();
+                            } catch (JSONException e) {
 
+                            }
                         }
-                    }
-                });
+                    });
+                }
 
             }
         });
